@@ -1,4 +1,3 @@
 {
-  "weather": "assets/weathercard.js",
-  "web-components": "assets/web-components.js"
+  "webComponents": "assets/web-components.js"
 }
