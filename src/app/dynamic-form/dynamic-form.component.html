@@ -9,6 +9,7 @@
     <!--    The form or the micro-frontend should be placed here.-->
     <p>Hello, {{name}}!</p>
 </div>
-<div class="modal-footer">
+<div *ngIf="!isMicroFrontEndForm"
+     class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
 </div>
