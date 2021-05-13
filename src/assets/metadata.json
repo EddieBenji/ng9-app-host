@@ -1,3 +1,4 @@
 {
-  "weather": "assets/weathercard.js"
+  "weather": "assets/weathercard.js",
+  "web-components": "assets/web-components.js"
 }

@@ -10,9 +10,11 @@ export class LoadService {
     }
 
     initialize() {
-        this.http.get<{ weather: string }>('assets/metadata.json')
-          .subscribe(({ weather }) => {
-              this.getFile(weather);
+        this.http.get<{ [ key: string ]: string }>('assets/metadata.json')
+          .subscribe((param) => {
+              Object.entries(param).forEach(([ key, script ]) => {
+                  this.getFile(script);
+              });
           });
     }
 
