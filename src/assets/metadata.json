@@ -1,3 +1,4 @@
 {
-  "webComponents": "assets/web-components.js"
+  "webComponents": "assets/web-components.js",
+  "vanillaWebComponents": "assets/vanilla-web-component.js"
 }

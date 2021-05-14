@@ -20,11 +20,18 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.popup.showFormAsElement('form-element', 'modal-body', 'saveForm');
         // Close this form if and only if:
         this.popup.onFormClosed
           .pipe(takeUntil(this.unSubscribe$))
           .subscribe(() => this.activeModal.close('Form saved externally'));
+    }
+
+    vanillaBasedApproachSelected() {
+        this.popup.showFormAsElement('custom-form', 'modal-body', 'saveForm');
+    }
+
+    angularBasedApproachSelected() {
+        this.popup.showFormAsElement('form-element', 'modal-body', 'saveForm');
     }
 
     ngOnDestroy(): void {

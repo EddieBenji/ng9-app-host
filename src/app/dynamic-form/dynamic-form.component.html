@@ -8,6 +8,14 @@
      id="modal-body">
     <!--    The form or the micro-frontend should be placed here.-->
     <p>Hello, {{name}}!</p>
+    <div class="row">
+        <div class="col-auto">
+            <button class="btn btn-primary" (click)="angularBasedApproachSelected()">Angular Based Approach</button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary" (click)="vanillaBasedApproachSelected()">Vanilla HTML/CSS/JS Based Approach</button>
+        </div>
+    </div>
 </div>
 <div *ngIf="!isMicroFrontEndForm"
      class="modal-footer">
