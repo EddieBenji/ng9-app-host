@@ -16,7 +16,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     isMicroFrontEndForm = true;
 
     constructor(public activeModal: NgbActiveModal,
-      public popup: PopupService) {
+                public popup: PopupService) {
     }
 
     ngOnInit(): void {

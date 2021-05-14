@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NgElement, WithProperties } from '@angular/elements';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { DummyRequestService } from './utils/services/dummy-request.service';
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +11,7 @@ export class PopupService {
 
     private formClosed$ = new Subject<void>();
 
-    constructor() {
+    constructor(private dummyReqService: DummyRequestService) {
     }
 
     showFormAsElement(formCustomTag: string, bodyContainerId: string, submitListener: string) {
@@ -23,8 +25,16 @@ export class PopupService {
         // Listen to the close event
         popupEl.addEventListener(submitListener, (info: HTMLElementEventMap | any) => {
             console.log('info ->', info.detail);
+            // request to the API for saving the data.
             formBody.removeChild(popupEl);
             this.formClosed$.next();
+        });
+        popupEl.addEventListener('doGetRequest', (info: HTMLElementEventMap | any) => {
+            this.dummyReqService.doDummyGetReq(info.detail.url)
+              .pipe(map((params) => ({ params, url: info.detail.url })))
+              .subscribe((params) => {
+                  popupEl.UIElements = params;
+              });
         });
 
         // Set the id

@@ -1,0 +1,13 @@
+{
+  "forwarders": [
+    {
+      "name": "tcp"
+    },
+    {
+      "name": "udp"
+    },
+    {
+      "name": "uldp"
+    }
+  ]
+}
