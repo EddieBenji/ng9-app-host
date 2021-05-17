@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { LoadService } from './load.service';
 import { PopupService } from './popup.service';
+import { RegisterComponent } from './register/register.component';
 
 @Component({
     selector: 'app-root',
@@ -23,5 +24,12 @@ export class AppComponent {
             centered: true
         });
         modalRef.componentInstance.name = 'World';
+    }
+
+    openRegisterForm() {
+        this.modalService.open(RegisterComponent, {
+            size: 'lg',
+            centered: true
+        });
     }
 }
