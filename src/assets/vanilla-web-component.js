@@ -3,45 +3,73 @@ class CustomForm extends HTMLElement {
         // Always call super first in constructor
         super();
         const shadow = this.attachShadow({ mode: 'open' });
+        shadow.innerHTML = `
+        <style>
+            form {
+                border: 1px solid black;
+            }
+        </style>
+        <form>
+            <input type="email"
+                   id="email"
+                   name="email"
+                   placeholder="Email"/>
+            
+            <input type="password"
+                   id="password"
+                   name="password"
+                   placeholder="Password"/>
+                   
+           <select id="forwarders"
+                   name="forwarders"
+                   class="form-control">
+               <option selected>Choose...</option>
+            </select>
+            
+            <button type="button"
+                    id="submitBtn">Submit!</button>
+        </form>
+        `;
+    }
 
-        const emailInput = document.createElement('input');
-        emailInput.name = 'inputEmail4';
-        emailInput.id = 'inputEmail4';
-        emailInput.placeholder = 'Email';
-        emailInput.type = 'email';
+    connectedCallback() {
 
-        const passwordInput = document.createElement('input');
-        passwordInput.name = 'inputPassword4';
-        passwordInput.id = 'inputPassword4';
-        passwordInput.placeholder = 'Password';
-        passwordInput.type = 'password';
+        // Fire the GET(s).
+        const doGetReq = new CustomEvent('doGetRequest', {
+            composed: true,
+            detail: {
+                url: 'assets/dummy-response.json'
+            }
+        });
+        this.dispatchEvent(doGetReq);
 
-        const submitBtn = document.createElement('button');
-        submitBtn.type = 'button';
-        // submitBtn.value = 'Submit';
-        submitBtn.textContent = 'Submit';
-
-        const form = document.createElement('form');
-        shadow.appendChild(form);
-
-        form.appendChild(emailInput);
-        form.appendChild(passwordInput);
-        form.appendChild(submitBtn);
+        // Prepare the submit button to fire the 'saveForm' trigger.
+        const submitBtn = this.shadowRoot.querySelector('#submitBtn');
         submitBtn.addEventListener('click', () => {
+            const formData = new FormData(this.shadowRoot.querySelector('form'));
+            const formAsJson = Object.fromEntries(formData.entries());
 
             const saveFormEvent = new CustomEvent('saveForm', {
+                composed: true,
                 bubbles: true,
                 cancelable: false,
                 detail: {
-                    data: {
-                        email: emailInput.value,
-                        password: passwordInput.value
-                    }
+                    data: formAsJson
                 }
             });
-            // this.emit
             this.dispatchEvent(saveFormEvent);
         });
+    }
+
+    set UIElements(info) {
+        const asStringArray = info.params.forwarders.map(({ name }) => name);
+        const select = this.shadowRoot.querySelector('#forwarders');
+        for (const forwarder of asStringArray) {
+            const cOption = document.createElement('option');
+            cOption.value = forwarder;
+            cOption.textContent = forwarder;
+            select.appendChild(cOption);
+        }
     }
 }
 
