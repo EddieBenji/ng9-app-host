@@ -1,0 +1,99 @@
+<div class="modal-header">
+    <h4 class="modal-title">Register Plugin/JSON</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <form [formGroup]="registerForm" class="container">
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <input class="form-control-file"
+                       type="file"
+                       (change)="onChange($event)">
+            </div>
+            <div class="col-auto">
+                <label> Which approach would you like to register?</label>
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           id="jsonApproach"
+                           formControlName="approachToRegister"
+                           (change)="onChangedApproachType()"
+                           [value]="utilConstants.APPROACHES.JSON">
+                    <label class="form-check-label" for="jsonApproach">
+                        JSON
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           id="webComponentApproach"
+                           formControlName="approachToRegister"
+                           (change)="onChangedApproachType()"
+                           [value]="utilConstants.APPROACHES.WEB_COMPONENT">
+                    <label class="form-check-label"
+                           for="webComponentApproach">
+                        Web component
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="this.registerForm.get('approachToRegister').value === utilConstants.APPROACHES.WEB_COMPONENT"
+             class="row form-group mt-4">
+            <label for="customTagNameOfWebComponent" class="col-auto col-form-label">Custom tag name</label>
+            <div class="col">
+                <input type="text"
+                       id="customTagNameOfWebComponent"
+                       name="customTagNameOfWebComponent"
+                       formControlName="customTagNameOfWebComponent"
+                       class="form-control">
+            </div>
+        </div>
+        <div *ngIf="this.registerForm.get('approachToRegister').value === utilConstants.APPROACHES.JSON"
+             class="row form-group mt-4">
+            <label for="jsonFileName" class="col-auto col-form-label">JSON file name</label>
+            <div class="col">
+                <input type="text"
+                       id="jsonFileName"
+                       name="jsonFileName"
+                       formControlName="jsonFileName"
+                       class="form-control">
+            </div>
+        </div>
+    </form>
+    <!-- Shareable short link of  uploaded file -->
+    <div *ngIf="shortLink"
+         class="container text-center jumbotron">
+        <h2>Visit Here</h2>
+        <a href="{{shortLink}}"
+           target="_blank">{{shortLink}}</a>
+    </div>
+
+    <!--Flag variable is used here-->
+    <div class="container text-center" *ngIf="loading">
+        <h3>Loading ...</h3>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="ml-auto col-auto">
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        (click)="activeModal.close('Close click')">
+                    Close
+                </button>
+            </div>
+            <div class="col-auto">
+                <button (click)="onUpload()"
+                        [disabled]="registerForm.invalid"
+                        class="btn btn-primary">
+                    Upload
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
