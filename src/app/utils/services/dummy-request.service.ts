@@ -9,7 +9,7 @@ export class DummyRequestService {
     constructor(private http: HttpClient) {
     }
 
-    doDummyGetReq(url = 'assets/dummy-response.json') {
+    doDummyGetReq(url = 'http://localhost:5500/api/test/mock-server') {
         return this.http.get(url);
     }
 
