@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { filter } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { catchError, filter } from 'rxjs/operators';
 import { FileUploadService } from '../file-upload.service';
 
 class UtilConstants {
@@ -25,7 +27,7 @@ export class RegisterComponent implements OnInit {
 
     // helpers on the form:
     registerForm = new FormGroup({
-        file: new FormControl(null, Validators.required),
+        fileName: new FormControl(null, Validators.required),
         approachToRegister: new FormControl(UtilConstants.APPROACHES.JSON, Validators.required),
         jsonFileName: new FormControl(null, Validators.required)
     });
@@ -40,8 +42,8 @@ export class RegisterComponent implements OnInit {
     // On file Select
     onChange(event) {
         this.file = event.target.files[ 0 ];
-        this.registerForm.get('file').patchValue(this.file.name);
-        this.registerForm.get('file').updateValueAndValidity();
+        this.registerForm.get('fileName').patchValue(this.file.name);
+        this.registerForm.get('fileName').updateValueAndValidity();
     }
 
     onChangedApproachType() {
@@ -61,17 +63,26 @@ export class RegisterComponent implements OnInit {
     // OnClick of button Upload
     onUpload() {
         this.loading = !this.loading;
-        console.log('this.registerForm.value ->', this.registerForm.value);
 
-        // TODO: need to change this in order to hit the NodeJS API
         this.fileUploadService
-          .upload(this.file)
-          .pipe(filter((event: any) => typeof (event) === 'object'))
+          .upload(this.file, this.registerForm.value)
+          .pipe(
+            filter((event: any) => typeof (event) === 'object'),
+            catchError((err) => {
+                alert('Invalid mime type');
+                this.loading = false;
+                return throwError(new HttpErrorResponse({
+                    error: err.error,
+                    statusText: err.message,
+                    status: err.status
+                }));
+            })
+          )
           .subscribe(
             (event: any) => {
                 // Short link via api response
-                this.shortLink = event.link;
                 this.loading = false;
+                this.activeModal.close('web component/json registered successfully');
             }
           );
     }

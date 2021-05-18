@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class DummyInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        req = req.clone({ headers: req.headers.set('isFromDummyAPI', 'true') });
+        // This will emulate the JWT token!!
+        req = req.clone({ headers: req.headers.set('Authorization', 'vh7eSgf2OtY4V2IT') });
         return next.handle(req);
     }
 }

@@ -63,14 +63,6 @@
             </div>
         </div>
     </form>
-    <!-- Shareable short link of  uploaded file -->
-    <div *ngIf="shortLink"
-         class="container text-center jumbotron">
-        <h2>Visit Here</h2>
-        <a href="{{shortLink}}"
-           target="_blank">{{shortLink}}</a>
-    </div>
-
     <!--Flag variable is used here-->
     <div class="container text-center" *ngIf="loading">
         <h3>Loading ...</h3>
