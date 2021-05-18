@@ -8,7 +8,8 @@
      id="modal-body">
     <!--    The form or the micro-frontend should be placed here.-->
     <p>Hello, {{name}}!</p>
-    <div class="row">
+    <div *ngIf="isMicroFrontEndForm"
+         class="row">
         <div class="col-auto">
             <button class="btn btn-primary" (click)="angularBasedApproachSelected()">Angular Based Approach</button>
         </div>
