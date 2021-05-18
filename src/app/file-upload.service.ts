@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Json, WebComponent } from './models/web-component.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FileUploadService {
 
-    baseApiUrl = 'http://localhost:5500/api/file';
+    private BASE_API_URL = 'http://localhost:5500/api';
 
     constructor(private http: HttpClient) {
     }
@@ -26,6 +27,10 @@ export class FileUploadService {
         });
 
         // Make http post request over api with formData as req
-        return this.http.post(this.baseApiUrl, formData);
+        return this.http.post(`${this.BASE_API_URL}/file`, formData);
+    }
+
+    getRegisteredFiles() {
+        return this.http.get<{ webComponents: WebComponent[], jsons: Json[] }>(`${this.BASE_API_URL}/files`);
     }
 }

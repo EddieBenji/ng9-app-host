@@ -5,13 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { throwError } from 'rxjs';
 import { catchError, filter } from 'rxjs/operators';
 import { FileUploadService } from '../file-upload.service';
-
-class UtilConstants {
-    public static APPROACHES = {
-        WEB_COMPONENT: 'web-component',
-        JSON: 'json'
-    };
-}
+import { UtilConstants } from '../utils/util-constants';
 
 @Component({
     selector: 'app-register',

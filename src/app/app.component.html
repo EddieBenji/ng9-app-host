@@ -1,14 +1,18 @@
 <div class="container">
     <div class="row align-items-center text-center mt-4">
         <div class="col">
-            <button class="btn btn-primary"
-                    (click)="openDynamicForm()">
-                Open dynamic form
-            </button>
+            <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-primary" id="dropdown" ngbDropdownToggle>Toggle dropdown</button>
+                <div ngbDropdownMenu aria-labelledby="dropdown">
+                    <ng-container *ngFor="let option of options">
+                        <button ngbDropdownItem (click)="openDynamicForm(option)">{{option.name}}</button>
+                    </ng-container>
+                </div>
+            </div>
         </div>
         <div class="col">
 
-            <button class="btn btn-outline-primary"
+            <button class="btn btn-outline-secondary"
                     (click)="openRegisterForm()">
                 Register web component
             </button>
