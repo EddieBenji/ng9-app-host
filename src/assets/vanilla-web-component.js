@@ -3,6 +3,7 @@ class CustomForm extends HTMLElement {
         FORWARDERS: 'http://localhost:5500/api/forwarders',
         TEST_CONNECTION: 'http://localhost:5500/api/test/mock-server'
     };
+
     constructor() {
         // Always call super first in constructor
         super();
@@ -108,5 +109,5 @@ class CustomForm extends HTMLElement {
     }
 }
 
-// Define the new element
-customElements.define('custom-form', CustomForm);
+// Get or Define the new element (To avoid duplicates)
+customElements.get('custom-form') || customElements.define('custom-form', CustomForm);

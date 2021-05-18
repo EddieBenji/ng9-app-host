@@ -33,4 +33,9 @@ export class FileUploadService {
     getRegisteredFiles() {
         return this.http.get<{ webComponents: WebComponent[], jsons: Json[] }>(`${this.BASE_API_URL}/files`);
     }
+
+    formatNameGivenFilePath(filePathName: string): string {
+        const nameSplit = filePathName.split('/');
+        return nameSplit[ nameSplit.length - 1 ].split('.')[ 0 ];
+    }
 }

@@ -29,11 +29,19 @@ export class AppComponent implements OnInit {
           .subscribe(({ jsons, webComponents }) => {
               this.jsons = [ ...jsons ];
               const jsonOptions: UiDropdownOptions[] = this.jsons.map(
-                (theJson) => ({ id: theJson._id, type: UtilConstants.APPROACHES.JSON, name: theJson.schemaFilePath })
+                (theJson) => ({
+                    id: theJson._id,
+                    type: UtilConstants.APPROACHES.JSON,
+                    name: this.fileService.formatNameGivenFilePath(theJson.schemaFilePath)
+                })
               );
               this.webComponents = [ ...webComponents ];
               const webComponentOptions = this.webComponents.map(
-                (theWebC) => ({ id: theWebC._id, type: UtilConstants.APPROACHES.WEB_COMPONENT, name: theWebC.filePath })
+                (theWebC) => ({
+                    id: theWebC._id,
+                    type: UtilConstants.APPROACHES.WEB_COMPONENT,
+                    name: `${this.fileService.formatNameGivenFilePath(theWebC.filePath)} (${theWebC.customTagName})`
+                })
               );
               this.options = jsonOptions.concat(webComponentOptions);
           });

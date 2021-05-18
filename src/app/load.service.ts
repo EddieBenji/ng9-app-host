@@ -11,10 +11,10 @@ export class LoadService {
     }
 
     initializeWebComponent(filePath: string): Promise<any> {
-        return this.getFile(`${this.BASE_API_URL}/${filePath}`);
+        return this.getScriptFile(`${this.BASE_API_URL}/${filePath}`);
     }
 
-    private getFile(url: string) {
+    private getScriptFile(url: string) {
         return new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.async = true;
