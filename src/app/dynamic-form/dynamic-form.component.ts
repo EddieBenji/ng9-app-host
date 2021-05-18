@@ -35,6 +35,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
                   console.log('error ->', error);
               });
         }
+        // TODO initialize the JSON form.
         // Close this form if and only if:
         this.popup.onFormClosed
           .pipe(takeUntil(this.unSubscribe$))

@@ -37,6 +37,14 @@ export class PopupService {
               });
         });
 
+        popupEl.addEventListener('doPostRequest', (info: HTMLElementEventMap | any) => {
+            this.dummyReqService.doDummyPostReq(info.detail)
+              .pipe(map((params) => ({ params, url: info.detail.url })))
+              .subscribe((params) => {
+                  popupEl.UIElements = params;
+              });
+        });
+
         // Set the id
         popupEl.id = formCustomTag;
 
