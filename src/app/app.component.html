@@ -17,7 +17,7 @@
         <div class="col-auto">
             <button class="btn btn-outline-secondary"
                     (click)="openRegisterForm()">
-                Register JSON or Web component form
+                Register JSON or Plugin form
             </button>
         </div>
     </div>
@@ -29,8 +29,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Email</th>
-                    <th scope="col">forwarders</th>
-                    <th scope="col">serverIp</th>
+                    <th scope="col">Forwarders</th>
+                    <th scope="col">Server Ip</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -43,9 +43,9 @@
                     <td>{{ item.forwarders.join('') }}</td>
                     <td>{{ item.serverIp }}</td>
                     <td>
-                        <div ngbDropdown class="d-inline-block">
+                        <div ngbDropdown class="row">
                             <button [disabled]="options.length===0"
-                                    class="btn btn-outline-primary"
+                                    class="col-auto btn btn-outline-primary"
                                     id="dropdownEdit"
                                     ngbDropdownToggle>Edit
                             </button>
@@ -54,6 +54,10 @@
                                     <button ngbDropdownItem (click)="openDynamicForm(option, item)">{{option.name}}</button>
                                 </ng-container>
                             </div>
+                            <button (click)="deleteExampleForm(item)"
+                                    class="ml-2 col-auto btn btn-outline-danger">
+                                Delete
+                            </button>
                         </div>
                     </td>
                 </tr>
