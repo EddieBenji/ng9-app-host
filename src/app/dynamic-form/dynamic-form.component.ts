@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoadService } from '../load.service';
-import { Json, WebComponent } from '../models/web-component.model';
+import { ExampleForm, Json, WebComponent } from '../models/web-component.model';
 import { PopupService } from '../popup.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
         webComponent?: WebComponent,
         json?: Json
     };
+    @Input() itemToEdit: ExampleForm;
     private unSubscribe$ = new Subject<void>();
     // TODO, we must change the value of this prop depending on the form to render. If we're on a micro-frontend it must be true.
     isMicroFrontEndForm = true;
@@ -29,7 +30,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
         if (this.metadata.webComponent) {
             this.loadService.initializeWebComponent(this.metadata.webComponent.filePath)
               .then(() => {
-                  this.popup.showFormAsElement(this.metadata.webComponent.customTagName, 'modal-body', 'saveForm');
+                  this.popup.showFormAsElement(this.metadata.webComponent.customTagName, 'modal-body', this.itemToEdit);
               })
               .catch(error => {
                   console.log('error ->', error);

@@ -15,3 +15,11 @@ export interface UiDropdownOptions {
     type: string;
     name: string;
 }
+
+export interface ExampleForm {
+    id: string;
+    email: string;
+    password: string;
+    forwarders: string[];
+    serverIp: string;
+}

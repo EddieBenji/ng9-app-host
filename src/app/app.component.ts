@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { FileUploadService } from './file-upload.service';
-import { Json, UiDropdownOptions, WebComponent } from './models/web-component.model';
+import { LoadService } from './load.service';
+import { ExampleForm, Json, UiDropdownOptions, WebComponent } from './models/web-component.model';
 import { RegisterComponent } from './register/register.component';
 import { UtilConstants } from './utils/util-constants';
 
@@ -16,11 +17,16 @@ export class AppComponent implements OnInit {
     private webComponents: WebComponent[] = [];
     private jsons: Json[] = [];
 
-    constructor(private modalService: NgbModal, private fileService: FileUploadService) {
+    public itemsRegistered: ExampleForm[] = [];
+
+    constructor(private modalService: NgbModal, private fileService: FileUploadService,
+                private loadService: LoadService) {
     }
 
     ngOnInit(): void {
         this.loadOptions();
+        this.loadService.getFormExamples()
+          .subscribe(({ formExamples }) => this.itemsRegistered = formExamples);
     }
 
     private loadOptions(): void {
@@ -47,7 +53,7 @@ export class AppComponent implements OnInit {
           });
     }
 
-    openDynamicForm(option: UiDropdownOptions) {
+    openDynamicForm(option: UiDropdownOptions, editItem: ExampleForm = null) {
         const modalRef = this.modalService.open(DynamicFormComponent, {
             size: 'lg',
             centered: true
@@ -61,6 +67,7 @@ export class AppComponent implements OnInit {
             metadata = { json: { ...theJson } };
         }
         modalRef.componentInstance.metadata = { ...metadata };
+        modalRef.componentInstance.itemToEdit = editItem;
     }
 
     openRegisterForm() {

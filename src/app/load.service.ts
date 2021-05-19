@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ExampleForm } from './models/web-component.model';
 
 @Injectable({
     providedIn: 'root'
@@ -31,5 +32,9 @@ export class LoadService {
             });
             document.head.appendChild(script);
         });
+    }
+
+    getFormExamples() {
+        return this.http.get<{ maxFormExamples: number, formExamples: ExampleForm[] }>(`${this.BASE_API_URL}/api/form-example`);
     }
 }

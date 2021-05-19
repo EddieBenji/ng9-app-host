@@ -22,4 +22,43 @@
             </button>
         </div>
     </div>
+    <div class="row mt-4">
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">forwarders</th>
+                    <th scope="col">serverIp</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of itemsRegistered; index as i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>
+                        {{item.email}}
+                    </td>
+                    <td>{{ item.forwarders.join('') }}</td>
+                    <td>{{ item.serverIp }}</td>
+                    <td>
+                        <div ngbDropdown class="d-inline-block">
+                            <button [disabled]="options.length===0"
+                                    class="btn btn-outline-primary"
+                                    id="dropdownEdit"
+                                    ngbDropdownToggle>Edit
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdown">
+                                <ng-container *ngFor="let option of options">
+                                    <button ngbDropdownItem (click)="openDynamicForm(option, item)">{{option.name}}</button>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

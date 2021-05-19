@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { NgElement, WithProperties } from '@angular/elements';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ExampleForm } from './models/web-component.model';
 import { DummyRequestService } from './utils/services/dummy-request.service';
 
 @Injectable({
@@ -14,7 +15,7 @@ export class PopupService {
     constructor(private dummyReqService: DummyRequestService) {
     }
 
-    showFormAsElement(formCustomTag: string, bodyContainerId: string, submitListener: string) {
+    showFormAsElement(formCustomTag: string, bodyContainerId: string, itemToEdit: ExampleForm) {
         const formElement = document.getElementById(formCustomTag) as any;
         if (formElement) {
             return;
@@ -23,7 +24,7 @@ export class PopupService {
         const popupEl: NgElement & WithProperties<any> = document.createElement(formCustomTag) as any;
         const formBody = document.getElementById(bodyContainerId);
         // Listen to the close event
-        popupEl.addEventListener(submitListener, (info: HTMLElementEventMap | any) => {
+        popupEl.addEventListener('saveForm', (info: HTMLElementEventMap | any) => {
             console.log('info ->', info.detail);
             // request to the API for saving the data.
             formBody.removeChild(popupEl);
@@ -47,6 +48,8 @@ export class PopupService {
 
         // Set the id
         popupEl.id = formCustomTag;
+        // Set the element to edit (if any).
+        popupEl.itemToEdit = itemToEdit;
 
         // Add to the DOM
         formBody.appendChild(popupEl);
