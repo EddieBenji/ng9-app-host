@@ -87,4 +87,11 @@ export class AppComponent implements OnInit {
           .result
           .finally(() => this.loadOptions());
     }
+
+    deleteExampleForm(item: ExampleForm) {
+        this.requestService.deleteFormExample(item)
+          .subscribe(() => {
+              this.loadFormExamples();
+          });
+    }
 }

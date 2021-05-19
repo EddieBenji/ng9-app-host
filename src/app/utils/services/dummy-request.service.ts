@@ -28,6 +28,10 @@ export class DummyRequestService {
         return this.http.get<{ maxFormExamples: number, formExamples: ExampleForm[] }>(`${this.BASE_API_URL}/form-example`);
     }
 
+    deleteFormExample(item: ExampleForm) {
+        return this.http.delete(`${this.BASE_API_URL}/form-example/${item.id}`);
+    }
+
     saveFormExample(item: ExampleForm) {
         return this.http.post(`${this.BASE_API_URL}/form-example`, item);
     }
