@@ -19,10 +19,11 @@ interface FooterLayout extends Layout {
 
 @Component({
     selector: 'app-modal-footer-layout-component',
+    styles: [ '.modal-footer >>> button { margin: .25rem .125rem; }' ],
     template: `
         <div class="modal-footer" [class]="layoutOptions?.className || ''">
             <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-            <ng-container *ngFor="let props of renderProps; trackBy: trackElement" fxFlex>
+            <ng-container *ngFor="let props of renderProps; trackBy: trackElement">
                 <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
             </ng-container>
         </div>

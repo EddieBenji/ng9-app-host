@@ -40,8 +40,8 @@ export class DummyRequestService {
         return this.http.get<{ webComponents: WebComponent[], jsons: Json[] }>(`${this.BASE_API_URL}/files`);
     }
 
-    public callGenericHttp(uri: string, type: string, body?: any): Observable<any> {
+    public callGenericHttp(uri: string, method: string, body?: any): Observable<any> {
         const endpoint = `${this.BASE_API_URL}${uri}`;
-        return body ? this.http[ type ](endpoint, body) : this.http[ type ]<any>(endpoint);
+        return body ? this.http[ method ](endpoint, body) : this.http[ method ]<any>(endpoint);
     }
 }

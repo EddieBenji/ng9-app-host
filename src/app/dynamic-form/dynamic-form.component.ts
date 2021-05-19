@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MultipleDropdownControlComponent } from '../jsonforms/control/multiple-dropdown-control.component';
 import { PrintDataControlComponent } from '../jsonforms/control/print-data-control.component';
+import { SubmitButtonControlComponent, submitButtonControlTester } from '../jsonforms/control/submit-button-control.component';
 import { ModalFooterLayoutComponent, modalFooterLayoutTester } from '../jsonforms/layout/modal-footer-layout.component';
 import { TestGroupButtonLayoutComponent, testGroupButtonLayoutTester } from '../jsonforms/layout/test-group-button-layout.component';
 import { ExampleForm, Json, WebComponent } from '../models/web-component.model';
@@ -45,6 +46,10 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
         {
             renderer: ModalFooterLayoutComponent,
             tester: modalFooterLayoutTester
+        },
+        {
+            renderer: SubmitButtonControlComponent,
+            tester: submitButtonControlTester
         },
         {
             renderer: MultipleDropdownControlComponent,
