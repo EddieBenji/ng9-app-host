@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
                 (theWebC) => ({
                     id: theWebC._id,
                     type: UtilConstants.APPROACHES.WEB_COMPONENT,
-                    name: `${this.requestService.formatNameGivenFilePath(theWebC.filePath)} (${theWebC.customTagName})`
+                    name: theWebC.formName
                 })
               );
               this.options = jsonOptions.concat(webComponentOptions);
@@ -65,9 +65,11 @@ export class AppComponent implements OnInit {
         if (option.type === UtilConstants.APPROACHES.WEB_COMPONENT) {
             const theWebComponent = this.webComponents.find(webC => webC._id === option.id);
             metadata = { webComponent: { ...theWebComponent } };
+            modalRef.componentInstance.isMicroFrontEndForm = true;
         } else {
             const theJson = this.jsons.find(json => json._id === option.id);
             metadata = { json: { ...theJson } };
+            modalRef.componentInstance.isMicroFrontEndForm = false;
         }
         modalRef.componentInstance.metadata = { ...metadata };
         modalRef.componentInstance.itemToEdit = editItem;

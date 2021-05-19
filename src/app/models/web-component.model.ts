@@ -2,6 +2,7 @@ export interface WebComponent {
     _id: string;
     filePath: string;
     customTagName: string;
+    formName: string;
 }
 
 export interface Json {

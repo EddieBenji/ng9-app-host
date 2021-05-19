@@ -6,7 +6,7 @@
 </div>
 <div class="modal-body" id="modal-body">
     <jsonforms
-            *ngIf="schemaFiles"
+            *ngIf="!isMicroFrontEndForm && schemaFiles"
             [schema]="schemaFiles.schemaFile"
             [uischema]="schemaFiles.uiSchemaFile"
             [renderers]="renderers"

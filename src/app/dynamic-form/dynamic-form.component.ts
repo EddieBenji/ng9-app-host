@@ -12,7 +12,6 @@ import { MultipleDropdownControlComponent } from '../jsonforms/control/multiple-
 import { PrintDataControlComponent } from '../jsonforms/control/print-data-control.component';
 import { TestGroupButtonLayoutComponent, testGroupButtonLayoutTester } from '../jsonforms/layout/test-group-button-layout.component';
 
-
 @Component({
     selector: 'app-dynamic-form',
     templateUrl: './dynamic-form.component.html',
@@ -26,10 +25,10 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     @Input() itemToEdit: ExampleForm;
     private unSubscribe$ = new Subject<void>();
 
-    // TODO, we must change the value of this prop depending on the form to render. If we're on a micro-frontend it must be true.
+    @Input()
     isMicroFrontEndForm = false;
 
-    // jsonforms renderers
+    // json forms renderers
     renderers = [
         ...angularMaterialRenderers,
         {
@@ -78,12 +77,8 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         if (this.metadata.webComponent) {
             this.loadService.initializeWebComponent(this.metadata.webComponent.filePath)
-              .then(() => {
-                  this.popup.showFormAsElement(this.metadata.webComponent.customTagName, 'modal-body', this.itemToEdit);
-              })
-              .catch(error => {
-                  console.log('error ->', error);
-              });
+              .then(() => this.popup.showFormAsElement(this.metadata.webComponent.customTagName, 'modal-body', this.itemToEdit))
+              .catch(error => console.log('error ->', error));
         }
         if (this.metadata.json) {
             this.loadService.initializeJsonComponent(this.metadata.json)

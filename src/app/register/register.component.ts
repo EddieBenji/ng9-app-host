@@ -14,8 +14,6 @@ import { UtilConstants } from '../utils/util-constants';
 })
 export class RegisterComponent implements OnInit {
 
-    // Variable to store shortLink from api response
-    shortLink = '';
     loading = false; // Flag variable
     files: File[] = null; // Variable to store files
 
@@ -23,7 +21,7 @@ export class RegisterComponent implements OnInit {
     registerForm = new FormGroup({
         fileNames: new FormControl([], Validators.required),
         approachToRegister: new FormControl(UtilConstants.APPROACHES.JSON, Validators.required),
-        jsonFormName: new FormControl(null, Validators.required)
+        formName: new FormControl(null, Validators.required)
     });
 
     constructor(public activeModal: NgbActiveModal,
@@ -48,10 +46,8 @@ export class RegisterComponent implements OnInit {
     onChangedApproachType() {
         if (this.approachToRegister.value === this.utilConstants.APPROACHES.JSON) {
             this.registerForm.get('customTagNameOfWebComponent').disable();
-            this.registerForm.get('jsonFormName').enable();
             return;
         }
-        this.registerForm.get('jsonFormName').disable();
         if (!this.registerForm.get('customTagNameOfWebComponent')) {
             this.registerForm.addControl('customTagNameOfWebComponent', new FormControl(null, Validators.required));
         } else {
@@ -82,7 +78,6 @@ export class RegisterComponent implements OnInit {
           )
           .subscribe(
             (event: any) => {
-                // Short link via api response
                 this.loading = false;
                 this.activeModal.close('web component/json registered successfully');
             }

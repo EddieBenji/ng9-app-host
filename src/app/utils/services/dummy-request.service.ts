@@ -40,12 +40,6 @@ export class DummyRequestService {
         return this.http.get<{ webComponents: WebComponent[], jsons: Json[] }>(`${this.BASE_API_URL}/files`);
     }
 
-    formatNameGivenFilePath(filePathName: string): string {
-        const nameSplit = filePathName.split('/');
-        return nameSplit[ nameSplit.length - 1 ].split('.')[ 0 ];
-    }
-
-
     public callGenericHttp(uri: string, type: string, body?: any): Observable<any> {
         const endpoint = `${this.BASE_API_URL}${uri}`;
         return body ? this.http[ type ](endpoint, body) : this.http[ type ]<any>(endpoint);

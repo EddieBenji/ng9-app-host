@@ -9,8 +9,10 @@
     <form [formGroup]="registerForm" class="container">
         <div class="row align-items-center">
             <div class="col-auto">
-                <input *ngIf="this.approachToRegister.value === utilConstants.APPROACHES.WEB_COMPONENT; else multipleInputFile"
-                       class="form-control-file" type="file"
+                <input *ngIf="approachToRegister.value === utilConstants.APPROACHES.WEB_COMPONENT; else multipleInputFile"
+                       accept="text/javascript"
+                       class="form-control-file"
+                       type="file"
                        (change)="onChange($event)">
                 <ng-template #multipleInputFile>
                     <input class="form-control-file" type="file" accept="application/json"
@@ -44,25 +46,24 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="this.registerForm.get('approachToRegister').value === utilConstants.APPROACHES.WEB_COMPONENT"
-             class="row form-group mt-4">
-            <label for="customTagNameOfWebComponent" class="col-auto col-form-label">Custom tag name</label>
+        <div class="row form-group mt-4 no-gutters">
+            <label for="formName" class="col-3 col-form-label">Form name</label>
+            <div class="col">
+                <input type="text"
+                       id="formName"
+                       name="formName"
+                       formControlName="formName"
+                       class="form-control">
+            </div>
+        </div>
+        <div *ngIf="approachToRegister.value === utilConstants.APPROACHES.WEB_COMPONENT"
+             class="row form-group mt-4 no-gutters">
+            <label for="customTagNameOfWebComponent" class="col-3 col-form-label">Custom tag name</label>
             <div class="col">
                 <input type="text"
                        id="customTagNameOfWebComponent"
                        name="customTagNameOfWebComponent"
                        formControlName="customTagNameOfWebComponent"
-                       class="form-control">
-            </div>
-        </div>
-        <div *ngIf="this.registerForm.get('approachToRegister').value === utilConstants.APPROACHES.JSON"
-             class="row form-group mt-4">
-            <label for="jsonFormName" class="col-auto col-form-label">JSON form name</label>
-            <div class="col">
-                <input type="text"
-                       id="jsonFormName"
-                       name="jsonFormName"
-                       formControlName="jsonFormName"
                        class="form-control">
             </div>
         </div>
