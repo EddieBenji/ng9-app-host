@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string"
+    },
+    "password":{
+      "type": "string"
+    },
+    "forwarders": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "serverIp": {
+      "type": "string"
+    }
+  }
+}

@@ -8,6 +8,7 @@ export interface Json {
     _id: string;
     schemaFilePath: string;
     uiSchemaFilePath: string;
+    formName: string;
 }
 
 export interface UiDropdownOptions {

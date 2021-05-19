@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
                 (theJson) => ({
                     id: theJson._id,
                     type: UtilConstants.APPROACHES.JSON,
-                    name: this.requestService.formatNameGivenFilePath(theJson.schemaFilePath)
+                    name: theJson.formName
                 })
               );
               this.webComponents = [ ...webComponents ];

@@ -1,0 +1,65 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "HorizontalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "label": "Email",
+          "scope": "#/properties/email",
+          "options": {
+            "format": "email"
+          }
+        },
+        {
+          "type": "Control",
+          "label": "Password",
+          "scope": "#/properties/password",
+          "options": {
+            "format": "password"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/forwarders",
+      "label": "Forwarders",
+      "options": {
+        "format": "rtMultipleDropdown",
+        "optionLabel": "name",
+        "optionValue": "name",
+        "api": {
+          "type": "get",
+          "value": "/forwarders"
+        }
+      }
+    },
+    {
+      "type": "HorizontalLayout",
+      "elements": [
+        {
+          "type": "TestGroupButton",
+          "label": "Test server",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/serverIp"
+            }
+          ],
+          "options": {
+            "api": {
+              "type": "post",
+              "value": "/test/mock-server",
+              "body": {
+                "serverIp": "{serverIp}",
+                "otherParam": "fixedValue"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

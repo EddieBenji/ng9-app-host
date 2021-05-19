@@ -1,0 +1,46 @@
+{
+  "definitions": {
+    "general": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 3,
+          "description": "Please enter your name"
+        },
+        "description": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["name"]
+    },
+    "forwarding": {
+      "type": "object",
+      "properties": {
+        "forwarderNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "serverIp": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "general": {
+      "$ref": "#/definitions/general"
+    },
+    "forwarding": {
+      "$ref": "#/definitions/forwarding"
+    }
+  },
+  "required": ["general"]
+}

@@ -1,0 +1,117 @@
+{
+  "type": "Categorization",
+  "elements": [
+    {
+      "type": "Category",
+      "label": "Collector form",
+      "elements": [
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Group",
+                  "label": "General",
+                  "elements": [
+                    {
+                      "type": "VerticalLayout",
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "label": "Enable",
+                          "scope": "#/properties/general/properties/enable",
+                          "options": {
+                            "toggle": true
+                          }
+                        },
+                        {
+                          "type": "Control",
+                          "label": "Name",
+                          "scope": "#/properties/general/properties/name"
+                        },
+                        {
+                          "type": "Control",
+                          "label": "Description",
+                          "scope": "#/properties/general/properties/description",
+                          "options": {
+                            "multi": true
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Group",
+                  "label": "Forwarding",
+                  "elements": [
+                    {
+                      "type": "VerticalLayout",
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/forwarding/properties/forwarderNames",
+                          "label": "Forwarders",
+                          "options": {
+                            "format": "rtMultipleDropdown",
+                            "optionLabel": "name",
+                            "optionValue": "name",
+                            "api": {
+                              "type": "get",
+                              "value": "/forwarders"
+                            }
+                          }
+                        },
+                        {
+                          "type": "HorizontalLayout",
+                          "elements": [
+                            {
+                              "type": "TestGroupButton",
+                              "label": "Test server",
+                              "elements": [
+                                {
+                                  "type": "Control",
+                                  "scope": "#/properties/forwarding/properties/serverIp"
+                                }
+                              ],
+                              "options": {
+                                "api": {
+                                  "type": "post",
+                                  "value": "/test/mock-server",
+                                  "body": {
+                                    "serverIp": "{forwarding.serverIp}",
+                                    "otherParam": "fixedValue"
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Data",
+      "elements": [
+        {
+          "type": "Label",
+          "text": "Data"
+        },
+        {
+          "type": "Control",
+          "scope": "#/___data"
+        }
+      ]
+    }
+  ]
+}

@@ -21,6 +21,9 @@ import '@angular/localize/init';
 /***************************************************************************************************
  * BROWSER POLYFILLS
  */
+declare var require: any;
+(window as any).global = window;
+(window as any).process = require('process/browser');
 
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
 // import 'classlist.js';  // Run `npm install --save classlist.js`.
@@ -66,3 +69,8 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 import 'document-register-element';
+
+(window as any).global = window;
+// @ts-ignore
+window.Buffer = window.Buffer || [];
+(window as any).process = {env: { DEBUG: undefined }, version: [], cwd:() => ''};

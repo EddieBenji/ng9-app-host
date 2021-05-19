@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ExampleForm, Json, WebComponent } from '../../models/web-component.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -44,4 +45,9 @@ export class DummyRequestService {
         return nameSplit[ nameSplit.length - 1 ].split('.')[ 0 ];
     }
 
+
+    public callGenericHttp(uri: string, type: string, body?: any): Observable<any> {
+        const endpoint = `${this.BASE_API_URL}${uri}`;
+        return body ? this.http[ type ](endpoint, body) : this.http[ type ]<any>(endpoint);
+    }
 }

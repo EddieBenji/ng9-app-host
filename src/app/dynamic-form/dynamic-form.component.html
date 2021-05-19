@@ -4,10 +4,19 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<div class="modal-body"
-     id="modal-body">
+<div class="modal-body" id="modal-body">
+    <jsonforms
+            *ngIf="schemaFiles"
+            [schema]="schemaFiles.schemaFile"
+            [uischema]="schemaFiles.uiSchemaFile"
+            [renderers]="renderers"
+            [locale]="'de-DE'"
+            [ajv]="ajv"
+            (dataChange)="data = $event"
+            (errors)="formErrors = $event"
+    ></jsonforms>
 </div>
-<div *ngIf="!isMicroFrontEndForm"
-     class="modal-footer">
+<div *ngIf="!isMicroFrontEndForm" class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-primary submit-button" [disabled]="formErrors.length">Submit</button>
 </div>

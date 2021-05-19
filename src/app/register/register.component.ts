@@ -17,13 +17,13 @@ export class RegisterComponent implements OnInit {
     // Variable to store shortLink from api response
     shortLink = '';
     loading = false; // Flag variable
-    file: File = null; // Variable to store file
+    files: File[] = null; // Variable to store files
 
     // helpers on the form:
     registerForm = new FormGroup({
-        fileName: new FormControl(null, Validators.required),
+        fileNames: new FormControl([], Validators.required),
         approachToRegister: new FormControl(UtilConstants.APPROACHES.JSON, Validators.required),
-        jsonFileName: new FormControl(null, Validators.required)
+        jsonFormName: new FormControl(null, Validators.required)
     });
 
     constructor(public activeModal: NgbActiveModal,
@@ -33,20 +33,25 @@ export class RegisterComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    get approachToRegister() {
+        return this.registerForm.get('approachToRegister');
+    }
+
     // On file Select
     onChange(event) {
-        this.file = event.target.files[ 0 ];
-        this.registerForm.get('fileName').patchValue(this.file.name);
-        this.registerForm.get('fileName').updateValueAndValidity();
+        this.files = Object.entries(event.target.files)
+          .map(([ , file ]) => file as File);
+        this.registerForm.get('fileNames').patchValue(this.files.map(f => f.name));
+        this.registerForm.get('fileNames').updateValueAndValidity();
     }
 
     onChangedApproachType() {
-        if (this.registerForm.get('approachToRegister').value === this.utilConstants.APPROACHES.JSON) {
+        if (this.approachToRegister.value === this.utilConstants.APPROACHES.JSON) {
             this.registerForm.get('customTagNameOfWebComponent').disable();
-            this.registerForm.get('jsonFileName').enable();
+            this.registerForm.get('jsonFormName').enable();
             return;
         }
-        this.registerForm.get('jsonFileName').disable();
+        this.registerForm.get('jsonFormName').disable();
         if (!this.registerForm.get('customTagNameOfWebComponent')) {
             this.registerForm.addControl('customTagNameOfWebComponent', new FormControl(null, Validators.required));
         } else {
@@ -56,10 +61,13 @@ export class RegisterComponent implements OnInit {
 
     // OnClick of button Upload
     onUpload() {
+        let httpCall = this.fileUploadService.upload(this.files[ 0 ], this.registerForm.value);
+        if (this.approachToRegister.value === this.utilConstants.APPROACHES.JSON) {
+            httpCall = this.fileUploadService.uploadFiles(this.files, this.registerForm.value);
+        }
         this.loading = !this.loading;
 
-        this.fileUploadService
-          .upload(this.file, this.registerForm.value)
+        httpCall
           .pipe(
             filter((event: any) => typeof (event) === 'object'),
             catchError((err) => {

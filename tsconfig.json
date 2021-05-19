@@ -14,7 +14,20 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "http": [
+        "src/empty.ts"
+      ],
+      "https": [
+        "src/empty.ts"
+      ],
+      "json-schema-ref-parser": [
+        "node_modules/json-schema-ref-parser/dist/ref-parser.js"
+      ]
+    },
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
