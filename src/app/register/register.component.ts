@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { throwError } from 'rxjs';
 import { catchError, filter } from 'rxjs/operators';
-import { FileUploadService } from '../file-upload.service';
+import { FileUploadService } from '../utils/services/file-upload.service';
 import { UtilConstants } from '../utils/util-constants';
 
 @Component({

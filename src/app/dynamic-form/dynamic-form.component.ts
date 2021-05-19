@@ -2,9 +2,9 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { LoadService } from '../load.service';
+import { LoadService } from '../utils/services/load.service';
 import { ExampleForm, Json, WebComponent } from '../models/web-component.model';
-import { PopupService } from '../popup.service';
+import { PopupService } from '../utils/services/popup.service';
 
 @Component({
     selector: 'app-dynamic-form',

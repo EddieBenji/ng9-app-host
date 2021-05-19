@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { NgElement, WithProperties } from '@angular/elements';
 import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ExampleForm } from './models/web-component.model';
-import { DummyRequestService } from './utils/services/dummy-request.service';
+import { map, take } from 'rxjs/operators';
+import { ExampleForm } from '../../models/web-component.model';
+import { DummyRequestService } from './dummy-request.service';
 
 @Injectable({
     providedIn: 'root'
@@ -25,10 +25,24 @@ export class PopupService {
         const formBody = document.getElementById(bodyContainerId);
         // Listen to the close event
         popupEl.addEventListener('saveForm', (info: HTMLElementEventMap | any) => {
-            console.log('info ->', info.detail);
             // request to the API for saving the data.
-            formBody.removeChild(popupEl);
-            this.formClosed$.next();
+            this.dummyReqService.saveFormExample(info.detail)
+              .pipe(take(1))
+              .subscribe(() => {
+                  console.log('info ->', info.detail);
+                  formBody.removeChild(popupEl);
+                  this.formClosed$.next();
+              });
+        });
+        popupEl.addEventListener('updateForm', (info: HTMLElementEventMap | any) => {
+            // request to the API for saving the data.
+            this.dummyReqService.updateFormExample(info.detail)
+              .pipe(take(1))
+              .subscribe(() => {
+                  console.log('info ->', info.detail);
+                  formBody.removeChild(popupEl);
+                  this.formClosed$.next();
+              });
         });
         popupEl.addEventListener('doGetRequest', (info: HTMLElementEventMap | any) => {
             this.dummyReqService.doDummyGetReq(info.detail.url)

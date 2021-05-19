@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
-import { FileUploadService } from './file-upload.service';
-import { LoadService } from './load.service';
 import { ExampleForm, Json, UiDropdownOptions, WebComponent } from './models/web-component.model';
 import { RegisterComponent } from './register/register.component';
+import { DummyRequestService } from './utils/services/dummy-request.service';
 import { UtilConstants } from './utils/util-constants';
 
 @Component({
@@ -19,18 +18,22 @@ export class AppComponent implements OnInit {
 
     public itemsRegistered: ExampleForm[] = [];
 
-    constructor(private modalService: NgbModal, private fileService: FileUploadService,
-                private loadService: LoadService) {
+    constructor(private modalService: NgbModal,
+      private requestService: DummyRequestService) {
     }
 
     ngOnInit(): void {
         this.loadOptions();
-        this.loadService.getFormExamples()
+        this.loadFormExamples();
+    }
+
+    private loadFormExamples(): void {
+        this.requestService.getFormExamples()
           .subscribe(({ formExamples }) => this.itemsRegistered = formExamples);
     }
 
     private loadOptions(): void {
-        this.fileService
+        this.requestService
           .getRegisteredFiles()
           .subscribe(({ jsons, webComponents }) => {
               this.jsons = [ ...jsons ];
@@ -38,7 +41,7 @@ export class AppComponent implements OnInit {
                 (theJson) => ({
                     id: theJson._id,
                     type: UtilConstants.APPROACHES.JSON,
-                    name: this.fileService.formatNameGivenFilePath(theJson.schemaFilePath)
+                    name: this.requestService.formatNameGivenFilePath(theJson.schemaFilePath)
                 })
               );
               this.webComponents = [ ...webComponents ];
@@ -46,7 +49,7 @@ export class AppComponent implements OnInit {
                 (theWebC) => ({
                     id: theWebC._id,
                     type: UtilConstants.APPROACHES.WEB_COMPONENT,
-                    name: `${this.fileService.formatNameGivenFilePath(theWebC.filePath)} (${theWebC.customTagName})`
+                    name: `${this.requestService.formatNameGivenFilePath(theWebC.filePath)} (${theWebC.customTagName})`
                 })
               );
               this.options = jsonOptions.concat(webComponentOptions);
@@ -68,6 +71,9 @@ export class AppComponent implements OnInit {
         }
         modalRef.componentInstance.metadata = { ...metadata };
         modalRef.componentInstance.itemToEdit = editItem;
+        modalRef
+          .result
+          .finally(() => this.loadFormExamples());
     }
 
     openRegisterForm() {
