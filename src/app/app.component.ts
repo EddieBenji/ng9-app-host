@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
     public itemsRegistered: ExampleForm[] = [];
 
     constructor(private modalService: NgbModal,
-      private requestService: DummyRequestService) {
+                private requestService: DummyRequestService) {
     }
 
     ngOnInit(): void {
