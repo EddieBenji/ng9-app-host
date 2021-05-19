@@ -4,7 +4,7 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<div class="modal-body" id="modal-body">
+<div class="modal-body pb-0" id="modal-body">
     <jsonforms
             *ngIf="!isMicroFrontEndForm && schemaFiles"
             [schema]="schemaFiles.schemaFile"
@@ -15,8 +15,4 @@
             (dataChange)="data = $event"
             (errors)="formErrors = $event"
     ></jsonforms>
-</div>
-<div *ngIf="!isMicroFrontEndForm" class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-    <button type="button" class="btn btn-primary submit-button" [disabled]="formErrors.length">Submit</button>
 </div>

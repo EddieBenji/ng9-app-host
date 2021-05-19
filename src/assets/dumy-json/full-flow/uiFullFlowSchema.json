@@ -60,6 +60,13 @@
           }
         }
       ]
+    },
+    {
+      "type": "FooterLayout",
+      "options": {
+        "className": "mt-2"
+      },
+      "elements": []
     }
   ]
 }

@@ -5,12 +5,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorObject } from 'ajv';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { LoadService } from '../utils/services/load.service';
-import { ExampleForm, Json, WebComponent } from '../models/web-component.model';
-import { PopupService } from '../utils/services/popup.service';
 import { MultipleDropdownControlComponent } from '../jsonforms/control/multiple-dropdown-control.component';
 import { PrintDataControlComponent } from '../jsonforms/control/print-data-control.component';
+import { ModalFooterLayoutComponent, modalFooterLayoutTester } from '../jsonforms/layout/modal-footer-layout.component';
 import { TestGroupButtonLayoutComponent, testGroupButtonLayoutTester } from '../jsonforms/layout/test-group-button-layout.component';
+import { ExampleForm, Json, WebComponent } from '../models/web-component.model';
+import { LoadService } from '../utils/services/load.service';
+import { PopupService } from '../utils/services/popup.service';
 
 @Component({
     selector: 'app-dynamic-form',
@@ -40,6 +41,10 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
                 scopeEndsWith('___data')
               )
             )
+        },
+        {
+            renderer: ModalFooterLayoutComponent,
+            tester: modalFooterLayoutTester
         },
         {
             renderer: MultipleDropdownControlComponent,

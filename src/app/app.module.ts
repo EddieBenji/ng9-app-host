@@ -14,6 +14,8 @@ import { AppComponent } from './app.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { MultipleDropdownControlComponent } from './jsonforms/control/multiple-dropdown-control.component';
 import { PrintDataControlComponent } from './jsonforms/control/print-data-control.component';
+import { SubmitButtonControlComponent } from './jsonforms/control/submit-button-control.component';
+import { ModalFooterLayoutComponent } from './jsonforms/layout/modal-footer-layout.component';
 import { TestGroupButtonLayoutComponent } from './jsonforms/layout/test-group-button-layout.component';
 import { RegisterComponent } from './register/register.component';
 import { DummyInterceptor } from './utils/interceptors/dummy.interceptor';
@@ -25,7 +27,9 @@ import { DummyInterceptor } from './utils/interceptors/dummy.interceptor';
         RegisterComponent,
         TestGroupButtonLayoutComponent,
         PrintDataControlComponent,
-        MultipleDropdownControlComponent
+        MultipleDropdownControlComponent,
+        ModalFooterLayoutComponent,
+        SubmitButtonControlComponent
     ],
     imports: [
         CommonModule,
