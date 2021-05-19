@@ -31,8 +31,8 @@
         "optionLabel": "name",
         "optionValue": "name",
         "api": {
-          "type": "get",
-          "value": "/forwarders"
+          "method": "get",
+          "uri": "/forwarders"
         }
       }
     },
@@ -50,8 +50,8 @@
           ],
           "options": {
             "api": {
-              "type": "post",
-              "value": "/test/mock-server",
+              "method": "post",
+              "uri": "/test/mock-server",
               "body": {
                 "serverIp": "{serverIp}",
                 "otherParam": "fixedValue"

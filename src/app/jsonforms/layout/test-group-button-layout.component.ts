@@ -77,7 +77,7 @@ export class TestGroupButtonLayoutComponent extends LayoutRenderer<GroupLayout> 
 
     onClick() {
         const body = this.getBody();
-        this.dummyRequestService.callGenericHttp(this.options.api.value, this.options.api.type, body)
+        this.dummyRequestService.callGenericHttp(this.options.api.uri, this.options.api.method, body)
           .subscribe((response) => {
               this.success = response.success;
               this.formService.refresh();

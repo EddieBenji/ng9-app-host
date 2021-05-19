@@ -44,8 +44,8 @@ export class MultipleDropdownControlComponent extends JsonFormsControl implement
         this.to = this.controlProps.uischema.options;
 
         this.dummyRequest.callGenericHttp(
-          this.to.api.value,
-          this.to.api.type)
+          this.to.api.uri,
+          this.to.api.method)
           .subscribe((items: any[]) => {
               this.items = items;
               this.jsonFormsService.refresh();
