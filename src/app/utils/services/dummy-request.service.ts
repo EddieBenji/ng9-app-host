@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ExampleForm, Json, WebComponent } from '../../models/web-component.model';
+import { map } from 'rxjs/operators';
+import { ExampleForm, Json, UiDropdownOptions, WebComponent } from '../../models/web-component.model';
 import { Observable } from 'rxjs';
+import { UtilConstants } from '../util-constants';
 
 @Injectable({
     providedIn: 'root'
@@ -40,8 +42,23 @@ export class DummyRequestService {
         return this.http.put(`${this.BASE_API_URL}/form-example/${item.id}`, item);
     }
 
-    getRegisteredFiles() {
-        return this.http.get<{ webComponents: WebComponent[], jsons: Json[] }>(`${this.BASE_API_URL}/files`);
+    private getOptionsByType(type: string, options: Partial<WebComponent | Json>[]): UiDropdownOptions[] {
+        return options.map(
+          (theItem) => ({
+              id: theItem._id,
+              type,
+              name: theItem.formName
+          })
+        );
+    }
+
+    getRegisteredFiles(): Observable<{ webComponents: WebComponent[], jsons: Json[], options: UiDropdownOptions[] }> {
+        return this.http.get<{ webComponents: WebComponent[], jsons: Json[] }>(`${this.BASE_API_URL}/files`)
+          .pipe(map(({ webComponents, jsons }) => {
+              const options = this.getOptionsByType(UtilConstants.APPROACHES.JSON, jsons)
+                .concat(this.getOptionsByType(UtilConstants.APPROACHES.WEB_COMPONENT, webComponents));
+              return { webComponents, jsons, options };
+          }));
     }
 
     public callGenericHttp(uri: string, method: string, body?: any): Observable<any> {

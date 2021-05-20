@@ -35,24 +35,10 @@ export class AppComponent implements OnInit {
     private loadOptions(): void {
         this.requestService
           .getRegisteredFiles()
-          .subscribe(({ jsons, webComponents }) => {
+          .subscribe(({ jsons, webComponents, options }) => {
               this.jsons = [ ...jsons ];
-              const jsonOptions: UiDropdownOptions[] = this.jsons.map(
-                (theJson) => ({
-                    id: theJson._id,
-                    type: UtilConstants.APPROACHES.JSON,
-                    name: theJson.formName
-                })
-              );
               this.webComponents = [ ...webComponents ];
-              const webComponentOptions = this.webComponents.map(
-                (theWebC) => ({
-                    id: theWebC._id,
-                    type: UtilConstants.APPROACHES.WEB_COMPONENT,
-                    name: theWebC.formName
-                })
-              );
-              this.options = jsonOptions.concat(webComponentOptions);
+              this.options = [ ...options ];
           });
     }
 
@@ -90,8 +76,6 @@ export class AppComponent implements OnInit {
 
     deleteExampleForm(item: ExampleForm) {
         this.requestService.deleteFormExample(item)
-          .subscribe(() => {
-              this.loadFormExamples();
-          });
+          .subscribe(() => this.loadFormExamples());
     }
 }
