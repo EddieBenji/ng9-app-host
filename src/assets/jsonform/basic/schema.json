@@ -15,8 +15,9 @@
           "type": "boolean"
         }
       },
-      "additionalProperties": false,
-      "required": ["name"]
+      "required": [
+        "name"
+      ]
     },
     "forwarding": {
       "type": "object",
@@ -42,5 +43,7 @@
       "$ref": "#/definitions/forwarding"
     }
   },
-  "required": ["general"]
+  "required": [
+    "general"
+  ]
 }
