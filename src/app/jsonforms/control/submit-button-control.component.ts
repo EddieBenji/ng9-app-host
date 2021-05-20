@@ -55,9 +55,13 @@ export class SubmitButtonControlComponent extends JsonFormsControl implements On
     }
 
     onClick() {
-        const saveUpdateKey = !this.uiOptions.isUpdate ? 'save' : 'update';
-        const uri = this.uiOptions.api[ saveUpdateKey ].uri;
+        const saveUpdateKey = !this.data.id ? 'save' : 'update';
         const method = this.uiOptions.api[ saveUpdateKey ].method;
+        let uri = this.uiOptions.api[ saveUpdateKey ].uri;
+        // POC for update, no validations for method and uri values.
+        if (saveUpdateKey === 'update') {
+            uri = uri.replace('{id}', this.data.id);
+        }
         // Do call!
         const httpCall = this.dummyRequestService.callGenericHttp(uri, method, this.data);
         httpCall

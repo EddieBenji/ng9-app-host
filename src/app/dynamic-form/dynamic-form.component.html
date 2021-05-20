@@ -7,12 +7,11 @@
 <div class="modal-body pb-0" id="modal-body">
     <jsonforms
             *ngIf="!isMicroFrontEndForm && schemaFiles"
+            [data]="itemToEdit"
             [schema]="schemaFiles.schemaFile"
             [uischema]="schemaFiles.uiSchemaFile"
             [renderers]="renderers"
             [locale]="'de-DE'"
             [ajv]="ajv"
-            (dataChange)="data = $event"
-            (errors)="formErrors = $event"
     ></jsonforms>
 </div>

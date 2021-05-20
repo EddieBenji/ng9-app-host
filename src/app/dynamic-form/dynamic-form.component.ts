@@ -2,7 +2,6 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { angularMaterialRenderers } from '@jsonforms/angular-material';
 import { and, createAjv, isControl, optionIs, rankWith, scopeEndsWith } from '@jsonforms/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ErrorObject } from 'ajv';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MultipleDropdownControlComponent } from '../jsonforms/control/multiple-dropdown-control.component';
@@ -75,8 +74,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     });
 
     schemaFiles: { schemaFile: any, uiSchemaFile: any };
-    formErrors: ErrorObject[] = [];
-    data: any;
 
     constructor(public activeModal: NgbActiveModal,
                 private loadService: LoadService,

@@ -79,8 +79,7 @@
               },
               "update": {
                 "method": "put",
-                "uri": "/form-example/{id}",
-                "idValue": "id"
+                "uri": "/form-example/{id}"
               }
             }
           }
