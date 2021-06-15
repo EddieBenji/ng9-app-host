@@ -7,10 +7,7 @@
         {
           "type": "Control",
           "label": "Email",
-          "scope": "#/properties/email",
-          "options": {
-            "format": "email"
-          }
+          "scope": "#/properties/email"
         },
         {
           "type": "Control",
